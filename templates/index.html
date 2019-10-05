@@ -18,11 +18,16 @@
       <div id='file-list-display'></div>
       <script>
          (function () {
+
+
          var fileCatcher = document.getElementById('file-catcher');
          var fileInput = document.getElementById('file-input');
          var fileListDisplay = document.getElementById('file-list-display');
          var fileList = [];
          var renderFileList, sendFile;
+         var images = {};
+        var count = 0;
+
          fileCatcher.addEventListener('submit', function (evnt) {
          evnt.preventDefault();
          fileList.forEach(function (file) {
@@ -39,32 +44,58 @@
 
          //////////////////////////////////////////////////////////////////////////////////////
 
-         renderFileList = function (callback) {
-          var images = [];
+        function renderFileList() {
          fileListDisplay.innerHTML = '';
          count = 0;
-
-         fileList.forEach(function (file, index) {
-           images.push(getExif(file));
+         images = {};
+         fileList.forEach(function (file) {
+          getExif(file,cleanUp); //async wait to finish
          });
-          sendRequest(images);
+         console.log(returnImages());
          }
 
+         function returnImages(){
+           return images;
+         }
 
+         function cleanUp(exif){
+           var cleanObject = {};
+           if ("GPSLatitude" in exif && "GPSLongitude" in exif)
+           {
+              cleanObject["lat"] = exif["GPSLatitude"];
+              cleanObject["long"] = exif["GPSLongitude"];
 
-         function getExif(img) {
-             EXIF.getData(img, function() {
-                 var allMetaData = EXIF.getAllTags(this);
-                 var allMetaDataSpan = document.getElementById("allMetaDataSpan");
+              exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
+              exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
+              exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
+              exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
 
-                 console.log(allMetaData)
-                 return allMetaData;
+              console.log(cleanObject);
+              images["img"+count]= cleanObject;
+              console.log(images);
+              count+=1;
+              return 1;
+            }
+            else{
+            return -1;
+          }
+         }
+
+         function getExif(img,callback) {
+           var temp;
+           EXIF.getData(img, function() {
+
+                var allMetaData = EXIF.getAllTags(this);
+                 console.log(allMetaData);
+                 temp = allMetaData;
+                 console.log(temp);
+                 return callback(temp);
              });
          }
 
          /////////////////////////////////////////////////////////////////////////////////
 
-         sendFile = function (file) {
+         function sendFile(file) {
          var formData = new FormData();
          var request = new XMLHttpRequest();
          formData.set('file', file);
