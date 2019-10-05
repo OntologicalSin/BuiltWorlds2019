@@ -16,8 +16,6 @@ def hamming_distance(a, b):
     print(hm_distance)
     return hm_distance
 
-
-
 def is_imgs_similar(img1,img2):
     return True if hamming_distance(phash(img1),phash(img2)) <= 5 else False
 
