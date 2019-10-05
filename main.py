@@ -15,7 +15,7 @@ def serve():
 
 <form action="" method="post" enctype="multipart/form-data">
     Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="file" name="fileToUpload" id="fileToUpload" multiple>
     <br><br>
     <input type="submit" value="Upload Image" name="submit">
 </form>
