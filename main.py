@@ -1,33 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
 
 @app.route("/")
 @cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def serve():
-    return """
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<form action="" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <br><br>
-    <input type="submit" value="Upload Image" name="submit">
-</form>
-
-</body>
-</html>
-
-    """
+    return render_template('index.html')
 
 @app.route('/processData', methods = ['POST'])
 @cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def sortData():
+    app.logger.info("something got pushed")
     data = request.get_json(force=True).get('data')
     app.logger.info(data)
 
