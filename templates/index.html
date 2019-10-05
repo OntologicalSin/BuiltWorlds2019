@@ -1,10 +1,10 @@
 
-
 <!doctype html>
 <html>
    <head>
       <meta charset="utf-8"/>
-      <title>Test</title>
+      <title>ImageChrysalis</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    </head>
    <body>
       <form id='file-catcher'>
@@ -15,63 +15,116 @@
       </form>
       <div id='file-list-display'></div>
       <script>
-         (function () {
-         var fileCatcher = document.getElementById('file-catcher');
-         var fileInput = document.getElementById('file-input');
-         var fileListDisplay = document.getElementById('file-list-display');
+   (function () {
+   var fileCatcher = document.getElementById('file-catcher');
+   var fileInput = document.getElementById('file-input');
+   var fileListDisplay = document.getElementById('file-list-display');
+   var fileList = [];
+   var renderFileList, sendFile;
+   fileCatcher.addEventListener('submit', function (evnt) {
+   evnt.preventDefault();
+   fileList.forEach(function (file) {
+   sendFile(file);
+   });
+   });
+   fileInput.addEventListener('change', function (evnt) {
+   fileList = [];
+   for (var i = 0; i < fileInput.files.length; i++) {
+   fileList.push(fileInput.files[i]);
+   }
+   renderFileList();
+   });
 
-         var fileList = [];
-         var renderFileList, sendFile;
+   renderFileList = function (callback) {
+    var images = {};
+   fileListDisplay.innerHTML = '';
+   count = 0;
 
-         fileCatcher.addEventListener('submit', function (evnt) {
-         evnt.preventDefault();
-         fileList.forEach(function (file) {
-         sendFile(file);
+   fileList.forEach(function (file, index) {
+     blob = new Blob([file],{type: "image/jpeg"});
+     var reader = new FileReader();
+     reader.readAsDataURL(blob);
+     reader.onloadend = function() {
+     var base64data = reader.result;
+     images[count] = String(base64data);
+     count+=1
+     }
+    });
+    sendRequest(images);
+   }
+
+   sendRequest = function(body){
+     console.log(body)
+     console.log(JSON.stringify({"image":body}))
+     jQuery.ajax({
+                 url: '/saveData',
+                 type: 'POST',
+                 data: body,
+                 contentType: 'application/json'
          });
-         });
+   }
 
-         fileInput.addEventListener('change', function (evnt) {
-         fileList = [];
-         for (var i = 0; i < fileInput.files.length; i++) {
-         fileList.push(fileInput.files[i]);
-         }
-         renderFileList();
-         });
+   sendFile = function (file) {
+   var formData = new FormData();
+   var request = new XMLHttpRequest();
+   formData.set('file', file);
+   request.open("POST", 'https://jsonplaceholder.typicode.com/photos');
+   request.send(formData);
+   };
 
-         renderFileList = function () {
-         fileListDisplay.innerHTML = '';
-         fileList.forEach(function (file, index) {
-
-           console.log(getBase64(file));
-
-         var fileDisplayEl = document.createElement('p');
-         fileDisplayEl.innerHTML = (index + 1) + ': ' + file;
-         fileListDisplay.appendChild(fileDisplayEl);
-         });
-         };
-
-         sendFile = function (file) {
-         var formData = new FormData();
-         var request = new XMLHttpRequest();
-
-         formData.set('file', file);
-         request.open("POST", 'https://jsonplaceholder.typicode.com/photos');
-         request.send(formData);
-         };
-
-         getBase64 = function (file) {
-               var reader = new FileReader();
-               reader.readAsDataURL(file);
-               reader.onload = function () {
-                 console.log(reader.result);
-               };
-               reader.onerror = function (error) {
-                 console.log('Error: ', error);
-               };
-              }
-
-         })();
-
-      </script>
+   })();
+</script>
    </body>
 </html>
+<!-- <script>
+   (function () {
+   var fileCatcher = document.getElementById('file-catcher');
+   var fileInput = document.getElementById('file-input');
+   var fileListDisplay = document.getElementById('file-list-display');
+
+   var fileList = [];
+   var renderFileList, sendFile;
+
+   fileCatcher.addEventListener('submit', function (evnt) {
+   evnt.preventDefault();
+   fileList.forEach(function (file) {
+   sendFile(file);
+   });
+   });
+
+   fileInput.addEventListener('change', function (evnt) {
+   var fileList = [];
+   for (var i = 0; i < fileInput.files.length; i++) {
+   fileList.push(fileInput.files[i]);
+   }
+   renderFileList();
+   });
+
+   renderFileList = function () {
+
+   fileListDisplay.innerHTML = '';
+   var sendingObject = []
+
+   fileList.forEach(function (file, index) {
+     console.log(file);
+     var results = new Blob([file],{type: "image/jpeg"});
+    console.log(results);
+    sendingObject.push(results);
+
+   // displays the file that was successfully sent
+   var fileDisplayEl = document.createElement('p');
+   fileDisplayEl.innerHTML = (index + 1) + ': ' + file;
+   fileListDisplay.appendChild(fileDisplayEl);
+  });
+
+  jQuery.ajax({
+              url: '/saveData',
+              type: 'POST',
+              data: JSON.stringify(sendingObject),
+              contentType: 'application/json'
+      });
+   }
+
+   })();
+
+</script> -->
