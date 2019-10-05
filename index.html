@@ -1,5 +1,4 @@
 
-
 <!doctype html>
 <html>
    <head>
@@ -9,6 +8,8 @@
       <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
    </head>
    <body>
+
+     <!-- handle file upload -->
       <form id='file-catcher'>
          <input id='file-input' type='file' multiple/>
          <button type='submit'>
@@ -16,10 +17,12 @@
          </button>
       </form>
       <div id='file-list-display'></div>
+      <!--  -->
+
       <script>
          (function () {
 
-
+        //global vars
          var fileCatcher = document.getElementById('file-catcher');
          var fileInput = document.getElementById('file-input');
          var fileListDisplay = document.getElementById('file-list-display');
@@ -30,9 +33,6 @@
 
          fileCatcher.addEventListener('submit', function (evnt) {
          evnt.preventDefault();
-         fileList.forEach(function (file) {
-         sendFile(file);
-         });
          });
          fileInput.addEventListener('change', function (evnt) {
          fileList = [];
@@ -44,6 +44,11 @@
 
          //////////////////////////////////////////////////////////////////////////////////////
 
+         function returnImages(){
+           return images;
+         }
+
+
         function renderFileList() {
          fileListDisplay.innerHTML = '';
          count = 0;
@@ -51,11 +56,6 @@
          fileList.forEach(function (file) {
           getExif(file,cleanUp); //async wait to finish
          });
-         console.log(returnImages());
-         }
-
-         function returnImages(){
-           return images;
          }
 
          function cleanUp(exif){
@@ -92,16 +92,6 @@
                  return callback(temp);
              });
          }
-
-         /////////////////////////////////////////////////////////////////////////////////
-
-         function sendFile(file) {
-         var formData = new FormData();
-         var request = new XMLHttpRequest();
-         formData.set('file', file);
-         request.open("POST", 'https://jsonplaceholder.typicode.com/photos');
-         request.send(formData);
-         };
 
          })();
       </script>
