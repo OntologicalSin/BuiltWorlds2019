@@ -10,7 +10,15 @@
 </head>
 <body>
 
-<canvas id="myCanvas" width="5000" height="5000">Your browser does not support the HTML5 canvas tag.</canvas>
+  <style>
+      #container { position: relative; }
+      .canvas { position: absolute; top: 0; left: 0; }
+  </style>
+
+  <div id="container">
+
+<canvas class="canvas" id="canvas2" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas> -->
+
 <script>
   var imagesDMS = [
     {imageName: "img_1", latD: 40, latM: 48, latS: 20.981, longD: 80, longM: 30, longS: 42.875},
@@ -77,6 +85,7 @@
 
   //blow everything up by some proportion
   var proportion = 20493000;
+  proportion /= 20;
   for(var i=0; i<imagesLatLong.length; i++) {
     imagesLatLong[i].lat *= proportion;
     imagesLatLong[i].long *= proportion;
@@ -103,23 +112,33 @@
   ];
   */
 
-  var c = document.getElementById("myCanvas");
-  var ctx = c.getContext("2d");
-  ctx.fillStyle = "#00C0CF";
-  var length = 20;
-  var width = length;
+var c = document.getElementById("canvas2");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "#0000FF";
+var length = 20;
+var width = length;
 
-  for(var i=0; i<images.length; i++) {
-    ctx.fillRect((images[i].x-(width/2)), (images[i].y-(length/2)), length, width); //later: use path and arc to make circle
-  }
-
-  var x = 200;
-  var y = 20;
-  var length = 2;
-  var width = 2;
-  //  ctx.fillRect(x, y, width, length);
+for(var i=0; i<images.length; i++) {
+  ctx.fillRect((images[i].x-(width/2)), (images[i].y-(length/2)), length, width); //later: use path and arc to make circle
+}
 
 </script>
 
+<canvas class="canvas" id="canvas1" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas> -->
+<script>
+var c = document.getElementById("canvas1");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "#000000";
+var length = 20;
+var width = length;
+
+var background = new Image();
+background.src = "http://i.imgur.com/yf6d9SX.jpg";
+
+background.onload = function(){
+    ctx.drawImage(background,0,0);
+  }
+</script>
+  </div>
 </body>
 </html>
