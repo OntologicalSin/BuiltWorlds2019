@@ -8,7 +8,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<style>
+	body{
+	background-repeat: no-repeat;
+	}
+</style>
+<body background="http://i.imgur.com/yf6d9SX.jpg">
 
   <style>
       #container { position: relative; }
@@ -17,7 +22,7 @@
 
   <div id="container">
 
-<canvas class="canvas" id="canvas2" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas> -->
+<canvas class="canvas" id="canvas2" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
   var imagesDMS = [
@@ -112,19 +117,19 @@
   ];
   */
 
-var c = document.getElementById("canvas2");
-var ctx = c.getContext("2d");
-ctx.fillStyle = "#0000FF";
-var length = 20;
-var width = length;
+	var c = document.getElementById("canvas2");
+	var ctx = c.getContext("2d");
+	ctx.fillStyle = "#0000FF";
+	var length = 20;
+	var width = length;
 
-for(var i=0; i<images.length; i++) {
-  ctx.fillRect((images[i].x-(width/2)), (images[i].y-(length/2)), length, width); //later: use path and arc to make circle
+	for(var i=0; i<images.length; i++) {
+	ctx.fillRect((images[i].x-(width/2)), (images[i].y-(length/2)), length, width); //later: use path and arc to make circle
 }
 
 </script>
 
-<canvas class="canvas" id="canvas1" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas> -->
+<!--<canvas class="canvas" id="canvas1" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas>
 <script>
 var c = document.getElementById("canvas1");
 var ctx = c.getContext("2d");
@@ -138,7 +143,7 @@ background.src = "http://i.imgur.com/yf6d9SX.jpg";
 background.onload = function(){
     ctx.drawImage(background,0,0);
   }
-</script>
+</script> -->
   </div>
 </body>
 </html>
