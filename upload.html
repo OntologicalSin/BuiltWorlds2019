@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+      <title>ImageChrysalis</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+   </head>
+   <body>
+
+     <!-- handle file upload -->
+      <form id='file-catcher'>
+         <input id='file-input' type='file' multiple/>
+         <button type='submit'>
+         Submit
+         </button>
+      </form>
+      <div id='file-list-display'></div>
+      <!--  -->
+
+      <script>
+         (function () {
+
+        //global vars
+         var fileCatcher = document.getElementById('file-catcher');
+         var fileInput = document.getElementById('file-input');
+         var fileListDisplay = document.getElementById('file-list-display');
+         var fileList = [];
+         var renderFileList, sendFile;
+         var images = {};
+        var count = 0;
+
+         fileCatcher.addEventListener('submit', function (evnt) {
+         evnt.preventDefault();
+         });
+         fileInput.addEventListener('change', function (evnt) {
+         fileList = [];
+         for (var i = 0; i < fileInput.files.length; i++) {
+         fileList.push(fileInput.files[i]);
+         }
+         renderFileList();
+         });
+
+         //////////////////////////////////processing algorithms////////////////////////////
+         // function sortSimilar(imgObj){
+         //
+         // }
+
+
+         ////////////////////////////////////////////////////////////////////////////////////
+
+         function returnImages(){
+           return images;
+         }
+
+
+        function renderFileList() {
+         fileListDisplay.innerHTML = '';
+         count = 0;
+         images = {};
+         fileList.forEach(function (file) {
+          getExif(file,cleanUp); //async wait to finish
+         });
+         }
+
+         function cleanUp(exif){
+           var cleanObject = {};
+           if ("GPSLatitude" in exif && "GPSLongitude" in exif)
+           {
+              cleanObject["lat"] = exif["GPSLatitude"];
+              cleanObject["long"] = exif["GPSLongitude"];
+
+              exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
+              exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
+              exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
+              exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
+
+              console.log(cleanObject);
+              images["img"+count]= cleanObject;
+              console.log(images);
+              count+=1;
+              return 1;
+            }
+            else{
+            return -1;
+          }
+         }
+
+         function getExif(img,callback) {
+           var temp;
+           EXIF.getData(img, function() {
+
+                var allMetaData = EXIF.getAllTags(this);
+                 console.log(allMetaData);
+                 temp = allMetaData;
+                 console.log(temp);
+                 return callback(temp);
+             });
+         }
+
+         })();
+
+      </script>
+   </body>
+</html>
