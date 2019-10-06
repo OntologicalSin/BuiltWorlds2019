@@ -29,9 +29,7 @@ fileList.forEach(img=> {
       //get exif  //clean exif  //add exif to images array
     images.push(cleanData(getExif(img)));
   });
-console.log(images);
-alert(images);
-save(images);
+  setTimeout(function(){save(images)}, 2000);
 // save(images);
 window.location.href = "sim.html";
 }
@@ -42,21 +40,22 @@ async function getExif(img) {
 
 function cleanData(){
   var output = EXIF.getAllTags(this);
-  alert(output);
-  var exif = output;
+  setTimeout(function(){
+
+    var exif = output;
     var cleanObject = {};
+      if ("GPSLatitude" in exif && "GPSLongitude" in exif){
+         cleanObject["lat"] = exif["GPSLatitude"];
+         cleanObject["long"] = exif["GPSLongitude"];
 
-    if ("GPSLatitude" in exif && "GPSLongitude" in exif){
-       cleanObject["lat"] = exif["GPSLatitude"];
-       cleanObject["long"] = exif["GPSLongitude"];
+         exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
+         exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
+         exif["DateTime"] != undefinead ? cleanObject["date"] = exif["DateTime"] : console.log();
+         exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
 
-       exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
-       exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
-       exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
-       exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
-
-       images.push(cleanObject);
-     }
+         images.push(cleanObject);
+       }
+  }, 4000);
 }
 
 

@@ -26,7 +26,7 @@
   <canvas class="canvas" id="canvas2" width="5000" height="5000" >Your browser does not support the HTML5 canvas tag.</canvas>
 
   <script>
-
+/////////////////////////////////////////////////////////////////////////////////////////
     function createCookie(key, value) {
        let cookie = escape(key) + "=" + JSON.stringify(value)+";";
        document.cookie = cookie;
@@ -51,310 +51,336 @@
        createCookie(name, null);
     }
 
-     var data = eval(this.readCookie("thedata"));
-     console.log(data);
+    function createData(arr){
+      console.log(arr);
+      var newArray = [];
+      var count = 0;
+      arr.forEach(obj=>{
+        console.log(obj);
+        newobj={};
+        newobj["imageName"] = "img_"+count;
+        count+=1;
+        newobj["latD"] =obj["lat"][0];
+        newobj["latM"] =obj["lat"][1];
+        newobj["latS"] =obj["lat"][2];
+        newobj["longD"] =obj["long"][0];
+        newobj["longM"] =obj["long"][1];
+        newobj["longS"] =obj["long"][2];
+        console.log(newobj);
+        newArray.push(newobj);
+      });
+      console.log(newArray);
+      return newArray;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+
+     // var imgDMS = eval(this.readCookie("thedata"));
+     // console.log(imgDMS);
 
      var imgDMS = [
-  {
-    "lat": [40,48,20.18],
-    "long": [
-      77,
-      51,
-      43.78
-    ],
-    "date": "2019:08:25 09:35:16",
-    "altitude": 359.71469127040456
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.53
-    ],
-    "long": [
-      77,
-      51,
-      43.83
-    ],
-    "date": "2019:08:25 09:34:55",
-    "altitude": 359.71469127040456
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.66
-    ],
-    "long": [
-      77,
-      51,
-      44.46
-    ],
-    "date": "2019:09:06 17:17:12",
-    "altitude": 360.7517394934595
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.2
-    ],
-    "long": [
-      77,
-      51,
-      44.3
-    ],
-    "date": "2019:09:01 11:16:34",
-    "altitude": 359.71472158657514
-  },
-  {
-    "lat": [
-      40,
-      48,
-      21.12
-    ],
-    "long": [
-      77,
-      51,
-      44.93
-    ],
-    "date": "2019:09:01 11:11:08",
-    "altitude": 327.11495946941784
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.8
-    ],
-    "long": [
-      77,
-      51,
-      44.54
-    ],
-    "date": "2019:09:01 11:12:32",
-    "altitude": 360.048583984375
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.12
-    ],
-    "long": [
-      77,
-      51,
-      44.49
-    ],
-    "date": "2019:09:13 17:26:20",
-    "altitude": 359.6932982148083
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.13
-    ],
-    "long": [
-      77,
-      51,
-      44.16
-    ],
-    "date": "2019:07:12 15:31:43",
-    "altitude": 359.67959617428266
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.83
-    ],
-    "long": [
-      77,
-      51,
-      44.19
-    ],
-    "date": "2019:09:27 16:10:58",
-    "altitude": 359.8432919954904
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.28
-    ],
-    "long": [
-      77,
-      51,
-      43.31
-    ],
-    "date": "2019:07:19 17:34:33",
-    "altitude": 359.6302794022092
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.54
-    ],
-    "long": [
-      77,
-      51,
-      44.35
-    ],
-    "date": "2019:09:06 17:16:55",
-    "altitude": 359.66513056835635
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.25
-    ],
-    "long": [
-      77,
-      51,
-      44.35
-    ],
-    "date": "2019:09:13 17:25:47",
-    "altitude": 359.5686340640809
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.36
-    ],
-    "long": [
-      77,
-      51,
-      43.12
-    ],
-    "date": "2019:07:26 15:02:12",
-    "altitude": 361.8078004216444
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.88
-    ],
-    "long": [
-      77,
-      51,
-      43.99
-    ],
-    "date": "2019:07:19 17:34:01",
-    "altitude": 359.32073954983923
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.12
-    ],
-    "long": [
-      77,
-      51,
-      44.49
-    ],
-    "date": "2019:09:13 17:26:08",
-    "altitude": 359.6932982148083
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.12
-    ],
-    "long": [
-      77,
-      51,
-      44.49
-    ],
-    "date": "2019:09:13 17:26:08",
-    "altitude": 359.6932982148083
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.64
-    ],
-    "long": [
-      77,
-      51,
-      43.42
-    ],
-    "date": "2019:09:20 17:41:48",
-    "altitude": 359.5025025025025
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.8
-    ],
-    "long": [
-      77,
-      51,
-      43.8
-    ],
-    "date": "2019:08:09 14:45:23",
-    "altitude": 360.2780153977759
-  },
-  {
-    "lat": [
-      40,
-      48,
-      18.96
-    ],
-    "long": [
-      77,
-      51,
-      40.01
-    ],
-    "date": "2019:07:26 15:02:21",
-    "altitude": 361.971435546875
-  },
-  {
-    "lat": [
-      40,
-      48,
-      20.45
-    ],
-    "long": [
-      77,
-      51,
-      43.42
-    ],
-    "date": "2019:09:20 17:42:54",
-    "altitude": 359.63757317722195
-  },
-  {
-    "lat": [
-      40,
-      48,
-      19.24
-    ],
-    "long": [
-      77,
-      51,
-      44.1
-    ],
-    "date": "2019:07:26 15:02:51",
-    "altitude": 361.58367911479945
-  }
-]
-
-      var imagesDMS = [
-        {imageName: "img_1", latD: 40, latM: 48, latS: 20.981, longD: 80, longM: 30, longS: 42.875},
-        {imageName: "img_2", latD: 40, latM: 48, latS: 21.981, longD: 80, longM: 30, longS: 42.627},
-        {imageName: "img_3", latD: 40, latM: 48, latS: 20.946, longD: 80, longM: 30, longS: 43.015},
-        {imageName: "img_4", latD: 40, latM: 48, latS: 20.321, longD: 80, longM: 30, longS: 42.381},
-        {imageName: "img_5", latD: 40, latM: 48, latS: 20.686, longD: 80, longM: 30, longS: 42.186},
-      ];
-
+{
+"lat": [40,48,20.18],
+"long": [
+ 77,
+ 51,
+ 43.78
+],
+"date": "2019:08:25 09:35:16",
+"altitude": 359.71469127040456
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.53
+],
+"long": [
+ 77,
+ 51,
+ 43.83
+],
+"date": "2019:08:25 09:34:55",
+"altitude": 359.71469127040456
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.66
+],
+"long": [
+ 77,
+ 51,
+ 44.46
+],
+"date": "2019:09:06 17:17:12",
+"altitude": 360.7517394934595
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.2
+],
+"long": [
+ 77,
+ 51,
+ 44.3
+],
+"date": "2019:09:01 11:16:34",
+"altitude": 359.71472158657514
+},
+{
+"lat": [
+ 40,
+ 48,
+ 21.12
+],
+"long": [
+ 77,
+ 51,
+ 44.93
+],
+"date": "2019:09:01 11:11:08",
+"altitude": 327.11495946941784
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.8
+],
+"long": [
+ 77,
+ 51,
+ 44.54
+],
+"date": "2019:09:01 11:12:32",
+"altitude": 360.048583984375
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.12
+],
+"long": [
+ 77,
+ 51,
+ 44.49
+],
+"date": "2019:09:13 17:26:20",
+"altitude": 359.6932982148083
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.13
+],
+"long": [
+ 77,
+ 51,
+ 44.16
+],
+"date": "2019:07:12 15:31:43",
+"altitude": 359.67959617428266
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.83
+],
+"long": [
+ 77,
+ 51,
+ 44.19
+],
+"date": "2019:09:27 16:10:58",
+"altitude": 359.8432919954904
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.28
+],
+"long": [
+ 77,
+ 51,
+ 43.31
+],
+"date": "2019:07:19 17:34:33",
+"altitude": 359.6302794022092
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.54
+],
+"long": [
+ 77,
+ 51,
+ 44.35
+],
+"date": "2019:09:06 17:16:55",
+"altitude": 359.66513056835635
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.25
+],
+"long": [
+ 77,
+ 51,
+ 44.35
+],
+"date": "2019:09:13 17:25:47",
+"altitude": 359.5686340640809
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.36
+],
+"long": [
+ 77,
+ 51,
+ 43.12
+],
+"date": "2019:07:26 15:02:12",
+"altitude": 361.8078004216444
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.88
+],
+"long": [
+ 77,
+ 51,
+ 43.99
+],
+"date": "2019:07:19 17:34:01",
+"altitude": 359.32073954983923
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.12
+],
+"long": [
+ 77,
+ 51,
+ 44.49
+],
+"date": "2019:09:13 17:26:08",
+"altitude": 359.6932982148083
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.12
+],
+"long": [
+ 77,
+ 51,
+ 44.49
+],
+"date": "2019:09:13 17:26:08",
+"altitude": 359.6932982148083
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.64
+],
+"long": [
+ 77,
+ 51,
+ 43.42
+],
+"date": "2019:09:20 17:41:48",
+"altitude": 359.5025025025025
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.8
+],
+"long": [
+ 77,
+ 51,
+ 43.8
+],
+"date": "2019:08:09 14:45:23",
+"altitude": 360.2780153977759
+},
+{
+"lat": [
+ 40,
+ 48,
+ 18.96
+],
+"long": [
+ 77,
+ 51,
+ 40.01
+],
+"date": "2019:07:26 15:02:21",
+"altitude": 361.971435546875
+},
+{
+"lat": [
+ 40,
+ 48,
+ 20.45
+],
+"long": [
+ 77,
+ 51,
+ 43.42
+],
+"date": "2019:09:20 17:42:54",
+"altitude": 359.63757317722195
+},
+{
+"lat": [
+ 40,
+ 48,
+ 19.24
+],
+"long": [
+ 77,
+ 51,
+ 44.1
+],
+"date": "2019:07:26 15:02:51",
+"altitude": 361.58367911479945
+}
+];
+     // var imagesDMS =  createData(imgDMS); //[
+      //   {imageName: "img_1", latD: 40, latM: 48, latS: 20.981, longD: 80, longM: 30, longS: 42.875},
+      //   {imageName: "img_2", latD: 40, latM: 48, latS: 21.981, longD: 80, longM: 30, longS: 42.627},
+      //   {imageName: "img_3", latD: 40, latM: 48, latS: 20.946, longD: 80, longM: 30, longS: 43.015},
+      //   {imageName: "img_4", latD: 40, latM: 48, latS: 20.321, longD: 80, longM: 30, longS: 42.381},
+      //   {imageName: "img_5", latD: 40, latM: 48, latS: 20.686, longD: 80, longM: 30, longS: 42.186},
+      // ];
+      var x = createData(imgDMS);
+      console.log(x);
+      //imgDMS = x;
+      var imagesDMS = x;
       //convert DMS to latLong doubles
       var imagesLatLong = new Array(imagesDMS.length);
       for(var i=0; i<imagesLatLong.length; i++) {
@@ -363,7 +389,7 @@
           lat: ((imagesDMS[i].latD) + (imagesDMS[i].latM/60) + (imagesDMS[i].latS/3600)),
           long: ((imagesDMS[i].longD) + (imagesDMS[i].longM/60) + (imagesDMS[i].longS/3600))
         };
-        console.log(imagesLatLong[i].lat)
+        console.log(imagesLatLong[i].lat);
       }
 
     /*var imagesLatLong = [
@@ -410,7 +436,7 @@
       }
 
       //blow everything up by some proportion
-      var proportion = 20493000;
+      var proportion = 20494000;
       proportion /= 10.41667;
       for(var i=0; i<imagesLatLong.length; i++) {
         imagesLatLong[i].lat *= proportion;
@@ -613,7 +639,7 @@
 
 <!-- Third slider: Size -->
   <div class="slidecontainer3">
-    <input type="range" min="100" max="200" value="101" class="slider3" id="myRange3" orient="vertical">
+    <input type="range" min="10" max="200" value="101" class="slider3" id="myRange3" orient="vertical">
     <p>Size: <span id="demo3"></span></p>
   </div>
 
