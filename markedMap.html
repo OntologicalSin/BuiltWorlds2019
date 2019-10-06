@@ -11,9 +11,10 @@
 <style>
 	body{
 	background-repeat: no-repeat;
+  background-size: 1210px 864px;
 	}
 </style>
-<body background="http://i.imgur.com/yf6d9SX.jpg">
+<body background="Level 7 Drawings-page-002.jpg">
 
   <style>
       #container { position: relative; }
@@ -90,7 +91,7 @@
 
   //blow everything up by some proportion
   var proportion = 20493000;
-  proportion /= 20;
+  //proportion /= 20;
   for(var i=0; i<imagesLatLong.length; i++) {
     imagesLatLong[i].lat *= proportion;
     imagesLatLong[i].long *= proportion;
@@ -119,8 +120,8 @@
 
 	var c = document.getElementById("canvas2");
 	var ctx = c.getContext("2d");
-	ctx.fillStyle = "#0000FF";
-	var length = 20;
+	ctx.fillStyle = "#FF0000";
+	var length = 25;
 	var width = length;
 
 	for(var i=0; i<images.length; i++) {
