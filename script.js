@@ -28,7 +28,7 @@ images = [];
 fileList.forEach(img=> {
     getExif(img).then(console.log);
   });
-setTimeout(function(){save()}, 2000);
+setTimeout(function(){save()}, 5000);
 }
 
 async function getExif(img) {
@@ -38,11 +38,12 @@ async function getExif(img) {
 function cleanData(){
   var output = EXIF.getAllTags(this);
   var exif = output;
+  console.log(this);
     var cleanObject = {};
       if ("GPSLatitude" in exif && "GPSLongitude" in exif){
+         // cleanObject["imgb64"] =  toBase64(this,gb64);
          cleanObject["lat"] = exif["GPSLatitude"];
          cleanObject["long"] = exif["GPSLongitude"];
-
          exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
          exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
          exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
@@ -52,8 +53,8 @@ function cleanData(){
        }
 }
 
-
 //////////////////////////////////HELPER algorithms////////////////////////////
+
 
 function createCookie(key,value) {
    let cookie = escape(key) + "=" + JSON.stringify(value)+";";
