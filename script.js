@@ -26,23 +26,18 @@ function uploadFiles() {
 fileListDisplay.innerHTML = '';
 images = [];
 fileList.forEach(img=> {
-      //get exif  //clean exif  //add exif to images array
-    images.push(cleanData(getExif(img)));
+    getExif(img).then(console.log);
   });
-  setTimeout(function(){save(images)}, 2000);
-// save(images);
-window.location.href = "sim.html";
+setTimeout(function(){save()}, 2000);
 }
 
 async function getExif(img) {
-  await EXIF.getData(img, cleanData);
+  await EXIF.getData(img, cleanData); //pass image to callback
 }
 
 function cleanData(){
   var output = EXIF.getAllTags(this);
-  setTimeout(function(){
-
-    var exif = output;
+  var exif = output;
     var cleanObject = {};
       if ("GPSLatitude" in exif && "GPSLongitude" in exif){
          cleanObject["lat"] = exif["GPSLatitude"];
@@ -50,12 +45,11 @@ function cleanData(){
 
          exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
          exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
-         exif["DateTime"] != undefinead ? cleanObject["date"] = exif["DateTime"] : console.log();
+         exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
          exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
 
          images.push(cleanObject);
        }
-  }, 4000);
 }
 
 
@@ -66,6 +60,7 @@ function createCookie(key,value) {
    console.log(cookie);
    document.cookie = cookie;
    console.log("Creating new cookie with key: " + key + " value: " + value);
+   window.location.href = "sim.html";
 }
 
 function readCookie(name) {
@@ -96,9 +91,9 @@ function is_imgs_similar(i, j){
   console.log(j);
 }
 
-async function save(){
+ function save(){
+  var images = returnImages();
   createCookie('thedata', images);
-  //var x = document.cookie;
 }
 
 function sortSimilar(){
