@@ -25,8 +25,9 @@ uploadFiles();
 function uploadFiles() {
 fileListDisplay.innerHTML = '';
 images = [];
-fileList.forEach(function (img) {
-    getExif(img)
+fileList.forEach(img=> {
+      //get exif  //clean exif  //add exif to images array
+    images.push(cleanData(getExif(img)));
   });
 console.log(images);
 alert(images);
@@ -35,25 +36,29 @@ save(images);
 window.location.href = "sim.html";
 }
 
-
 async function getExif(img) {
-     await EXIF.getData(img, function() {
-          var exif = EXIF.getAllTags(this);
-          var cleanObject = {};
-
-          if ("GPSLatitude" in exif && "GPSLongitude" in exif){
-             cleanObject["lat"] = exif["GPSLatitude"];
-             cleanObject["long"] = exif["GPSLongitude"];
-
-             exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
-             exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
-             exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
-             exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
-
-             images.push(cleanObject);
-           }
-      });
+  await EXIF.getData(img, cleanData);
 }
+
+function cleanData(){
+  var output = EXIF.getAllTags(this);
+  alert(output);
+  var exif = output;
+    var cleanObject = {};
+
+    if ("GPSLatitude" in exif && "GPSLongitude" in exif){
+       cleanObject["lat"] = exif["GPSLatitude"];
+       cleanObject["long"] = exif["GPSLongitude"];
+
+       exif["GPSImgDirection"] != undefined ? cleanObject["imgDirection"] = exif["GPSImgDirection"] : console.log();
+       exif["GPSImgDirectionRef"] != undefined ? cleanObject["imgDirectionRef"] = exif["GPSImgDirectionRef"] : console.log();
+       exif["DateTime"] != undefined ? cleanObject["date"] = exif["DateTime"] : console.log();
+       exif["GPSAltitude"] != undefined ? cleanObject["altitude"] = exif["GPSAltitude"] : console.log();
+
+       images.push(cleanObject);
+     }
+}
+
 
 //////////////////////////////////HELPER algorithms////////////////////////////
 
@@ -93,7 +98,7 @@ function is_imgs_similar(i, j){
 }
 
 async function save(){
-  createCookie('mycookie', images);
+  createCookie('thedata', images);
   //var x = document.cookie;
 }
 
