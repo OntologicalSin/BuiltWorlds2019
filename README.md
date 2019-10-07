@@ -6,7 +6,7 @@ The project was conceived for BuiltWorlds2019 Hackathon. We use a dataset of ima
 
 ## Getting Started
 
-Visit the live demo provided at
+Use the live demo provided at https://ontologicalsin.github.io/bw/ with the images located in the `/images` folder
 
 ## Built With
 
